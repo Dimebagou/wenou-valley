@@ -122,10 +122,6 @@ class Player(pygame.sprite.Sprite):
                     self.seed_index = 0
                 self.selected_seed = self.seeds[self.seed_index]
                 
-
-            
-            
-
     def get_status(self):
 
         # idle
