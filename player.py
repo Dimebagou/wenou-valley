@@ -27,13 +27,16 @@ class Player(pygame.sprite.Sprite):
         # timers 
         self.timers = {
             'tool use': Timer(350, self.use_tool),
+            'tool switch': Timer(350)
         }
 
         # tools
-        self.selected_tool = "hoe"
+        self.tools = ['axe', 'water', 'hoe']
+        self.tool_index = 0
+        self.selected_tool = self.tools[self.tool_index]
 
     def use_tool(self):
-        print(self.selected_tool)
+        pass
 
     def import_assests(self):
         self.animations = {"up": [], "down": [], "left": [], "right": [],
@@ -84,6 +87,24 @@ class Player(pygame.sprite.Sprite):
                 self.timers['tool use'].activate()
                 self.direction = pygame.math.Vector2()
                 self.frame_index = 0
+
+            # change tool
+            if keys[pygame.K_a] and not self.timers['tool switch'].active:
+                self.timers['tool switch'].activate()
+                self.tool_index += 1
+                if self.tool_index >= len(self.tools):
+                    self.tool_index = 0
+                self.selected_tool = self.tools[self.tool_index]
+                print(self.selected_tool)
+
+            if keys[pygame.K_e] and not self.timers['tool switch'].active:
+                self.timers['tool switch'].activate()
+                self.tool_index -= 1
+                if self.tool_index < 0:
+                    self.tool_index = len(self.tools) - 1
+                self.selected_tool = self.tools[self.tool_index]
+                print(self.selected_tool)
+            
 
     def get_status(self):
 
