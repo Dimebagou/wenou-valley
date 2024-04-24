@@ -4,6 +4,7 @@ from support import *
 
 
 class Player(pygame.sprite.Sprite):
+
     def __init__(self, pos, group):
 
         super().__init__(group)
@@ -33,24 +34,46 @@ class Player(pygame.sprite.Sprite):
             full_path = 'assets/graphics/character/' + animation
             self.animations[animation] = import_folder(full_path)
 
+    def animate(self, dt):
+        self.frame_index += 4 * dt
+        
+        # check if the animation is complete 
+        if self.frame_index >= len(self.animations[self.status]):
+            # reset the animation
+            self.frame_index = 0
+
+        self.image = self.animations[self.status][int(self.frame_index)]
+
     def input(self):
         keys = pygame.key.get_pressed()
 
         # movement logic
         if keys[pygame.K_UP]:
             self.direction.y = -1
+            self.status = 'up'
         elif keys[pygame.K_DOWN]:
             self.direction.y = 1
+            self.status = 'down'
         else:
             self.direction.y = 0
 
         if keys[pygame.K_LEFT]:
             self.direction.x = -1
+            self.status = 'left'
         elif keys[pygame.K_RIGHT]:
             self.direction.x = 1
+            self.status = 'right'
         else:
             self.direction.x = 0
 
+    def get_status(self):
+
+        # idle
+        if self.direction.magnitude() == 0:
+            self.status = self.status.split('_')[0] + '_idle'
+
+        # tool use
+        
     def move(self, dt):
 
         # normalize the vector
@@ -67,4 +90,6 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, dt):
         self.input()
+        self.get_status()
         self.move(dt)
+        self.animate(dt)
