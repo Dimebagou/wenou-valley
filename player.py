@@ -27,7 +27,9 @@ class Player(pygame.sprite.Sprite):
         # timers 
         self.timers = {
             'tool use': Timer(350, self.use_tool),
-            'tool switch': Timer(350)
+            'tool switch': Timer(350),
+            'seed use': Timer(350, self.use_seed),
+            'seed switch': Timer(350)
         }
 
         # tools
@@ -35,7 +37,15 @@ class Player(pygame.sprite.Sprite):
         self.tool_index = 0
         self.selected_tool = self.tools[self.tool_index]
 
+        # seeds
+        self.seeds = ['corn', 'tomato']
+        self.seed_index = 0
+        self.selected_seed = self.seeds[self.seed_index]
+
     def use_tool(self):
+        pass
+
+    def use_seed(self):
         pass
 
     def import_assests(self):
@@ -95,15 +105,25 @@ class Player(pygame.sprite.Sprite):
                 if self.tool_index >= len(self.tools):
                     self.tool_index = 0
                 self.selected_tool = self.tools[self.tool_index]
-                print(self.selected_tool)
+                
 
-            if keys[pygame.K_e] and not self.timers['tool switch'].active:
-                self.timers['tool switch'].activate()
-                self.tool_index -= 1
-                if self.tool_index < 0:
-                    self.tool_index = len(self.tools) - 1
-                self.selected_tool = self.tools[self.tool_index]
-                print(self.selected_tool)
+            # seed use
+            if keys[pygame.K_LCTRL]:
+                self.timers['seed use'].activate()
+                self.direction = pygame.math.Vector2()
+                self.frame_index = 0
+                
+
+            # change seed
+            if keys[pygame.K_e] and not self.timers['seed switch'].active:
+                self.timers['seed switch'].activate()
+                self.seed_index += 1
+                if self.seed_index >= len(self.seeds):
+                    self.seed_index = 0
+                self.selected_seed = self.seeds[self.seed_index]
+                
+
+            
             
 
     def get_status(self):
