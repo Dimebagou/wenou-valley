@@ -18,6 +18,7 @@ class Player(pygame.sprite.Sprite):
         # general setup
         self.image = self.animations[self.status][self.frame_index]
         self.rect = self.image.get_rect(center=pos)
+        self.z = LAYERS['main']
 
         # movement attributes
         self.direction = pygame.math.Vector2()
@@ -74,19 +75,19 @@ class Player(pygame.sprite.Sprite):
 
         if not self.timers['tool use'].active:
             # direction
-            if keys[pygame.K_UP]:
+            if keys[pygame.K_UP] or keys[pygame.K_z]:
                 self.direction.y = -1
                 self.status = 'up'
-            elif keys[pygame.K_DOWN]:
+            elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
                 self.direction.y = 1
                 self.status = 'down'
             else:
                 self.direction.y = 0
 
-            if keys[pygame.K_LEFT]:
+            if keys[pygame.K_LEFT] or keys[pygame.K_q]:
                 self.direction.x = -1
                 self.status = 'left'
-            elif keys[pygame.K_RIGHT]:
+            elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
                 self.direction.x = 1
                 self.status = 'right'
             else:

@@ -8,7 +8,7 @@ class Game:
 
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((SCREEN_WIDHT, SCREEN_HEIGHT))
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption("Wenou Valley")
         Icon = pygame.image.load("wenou-valley.png")
         pygame.display.set_icon(Icon)
