@@ -1,3 +1,5 @@
+from pygame.math import Vector2
+
 # screen
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
@@ -5,11 +7,19 @@ TILE_SIZE = 64
 
 # overlay positions
 OVERLAY_POSITIONS = {
-    "tool" : (40, SCREEN_HEIGHT - 15),
-    "seed" : (70, SCREEN_HEIGHT - 5)
+    "tool": (40, SCREEN_HEIGHT - 15),
+    "seed": (70, SCREEN_HEIGHT - 5)
 }
 
-# layers 
+# player tool offsets
+PLAYER_TOOL_OFFSET = {
+    "left": Vector2(-50, 40),
+    "right": Vector2(50, 40),
+    "up": Vector2(0, -10),
+    "down": Vector2(0, 50)
+}
+
+# layers
 LAYERS = {
     "water": 0,
     "ground": 1,
@@ -22,4 +32,10 @@ LAYERS = {
     "house top": 8,
     "fruits": 9,
     "rain drops": 10
+}
+
+# apple
+APPLE_POS = {
+    'Small': [(18, 17), (30, 37), (12, 50), (30, 45), (20, 30), (30, 10)],
+    'Large': [(30, 24), (60, 65), (50, 50), (16, 40), (45, 50), (42, 70)]
 }
